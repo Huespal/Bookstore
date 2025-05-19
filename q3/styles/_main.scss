@@ -1,0 +1,111 @@
+@use 'theme';
+@use 'mixins';
+
+.main {
+  @include mixins.rounded;
+  background-color: theme.$light-color;
+  box-shadow: 0px 0px 20px 0px theme.$grey-color;
+  margin: 0 10%;
+  min-width: 40rem; // 640px
+
+  h1 {
+    padding: theme.$space-l;
+    font-family: Geneva, theme.$font;
+  }
+
+  .featured-book {
+    @include mixins.flex;
+    position: relative;
+    padding: theme.$space-l;
+    background-color: theme.$secondary-color;
+
+    @media (max-width: theme.$breakpoint-m) {
+      @include mixins.flex-column;
+    }
+
+    .recommended {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: theme.$light-color;
+      padding: theme.$space-s;
+      background-color: theme.$primary-color;
+      border-bottom-left-radius: theme.$space-s;
+    }
+
+    img {
+      @include mixins.rounded;
+      max-height: fit-content;
+
+      @media (max-width: theme.$breakpoint-m) {
+        @include mixins.image-s;
+      }
+    }
+
+    .book-info {
+      @include mixins.flex-column(theme.$space-s);
+
+      .title {
+        font-size: xx-large;
+      }
+
+      .synopsis {
+        @include mixins.flex-column;
+        margin-top: theme.$space-default;
+      }
+    }
+  }
+
+  .top-voted {
+    padding: theme.$space-l;
+
+    h2 {
+      font-size: xx-large;
+      margin: theme.$space-l 0;
+    }
+
+    .books-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(24rem, auto));
+      gap: theme.$space-default;
+
+      .book {
+        @include mixins.rounded;
+        @include mixins.flex-column;
+        position: relative;
+        background-color: theme.$secondary-color;
+        padding: theme.$space-default;
+
+        .position {
+          position: absolute;
+          top: theme.$space-s;
+          right: theme.$space-s;
+          color: theme.$primary-color;
+          width: 1.5rem;
+          height: 1.5rem;
+          line-height: 1.5rem;
+          border-radius: 100%;
+          border: 2px solid theme.$primary-color;
+          text-align: center;
+
+          @media (max-width: theme.$breakpoint-m) {
+            right: unset;
+            left: theme.$space-s;
+          }
+        }
+
+        img {
+          @include mixins.image-s;
+        }
+
+        .book-info {
+          @include mixins.flex-column(theme.$space-s);
+
+          .synopsis {
+            margin-top: theme.$space-default;
+          }
+        }
+      }
+    }
+  }
+}
