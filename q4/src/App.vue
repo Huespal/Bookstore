@@ -1,9 +1,5 @@
-<script setup lang="ts">
-</script>
-
 <template>
-  <div>Bookstore</div>
+  <main>
+    <RouterView />
+  </main>
 </template>
-
-<style lang="sass" scoped>
-</style>
