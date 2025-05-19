@@ -1,0 +1,46 @@
+@use 'theme';
+@use 'mixins';
+
+.top-actions {
+  padding: theme.$space-default 12%;
+
+  .container {
+    @include mixins.flex(0);
+    justify-content: space-between;
+    align-items: center;
+
+    .top-logo {
+      @include mixins.rounded;
+      padding: 0 theme.$space-xl;
+      background-color: theme.$grey-color;
+      height: theme.$size-l;
+      align-content: center;
+    }
+
+    .top-menu {
+      ul {
+        @include mixins.flex(theme.$space-s);
+        align-items: center;
+
+        li {
+          padding: theme.$space-default;
+          cursor: pointer;
+
+          &:hover {
+            @include mixins.rounded;
+            transition: background-color .5s;
+            background-color: theme.$primary-color;
+            color: theme.$light-color;
+          }
+        }
+
+        .active {
+          @include mixins.rounded;
+          padding: theme.$space-default;
+          background-color: theme.$primary-color;
+          color: theme.$light-color;
+        }
+      }
+    }
+  }
+}
