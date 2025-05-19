@@ -1,0 +1,21 @@
+@use 'theme';
+@use 'mixins';
+
+footer {
+  position: sticky;
+  bottom: 0;
+  background-color: theme.$dark-color;
+  color: theme.$light-color;
+  padding: theme.$space-default 0;
+
+  .container {
+    @include mixins.flex(0);
+    justify-content: center;
+    align-items: center;
+
+    ul {
+      @include mixins.flex(theme.$space-xl);
+      align-items: center;
+    }
+  }
+}
