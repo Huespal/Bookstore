@@ -14,13 +14,13 @@ export const api = async <T,>(
     ['content-type', 'application/json']
   ];
 
-  const data = await fetch(`${APIUrl}${url}`, {
-    headers,
-    method,
-    body: JSON.stringify(body)
-  });
-
   try {
+    const data = await fetch(`${APIUrl}${url}`, {
+      headers,
+      method,
+      body: JSON.stringify(body)
+    });
+
     const response = await data.json();
 
     if (!!response.error) {
