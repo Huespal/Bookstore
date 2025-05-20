@@ -7,15 +7,27 @@ import { ref } from 'vue';
 
 const { isPending, isError, data } = useGetBooks();
 const initialBooks = data.value ?? [];
-const books = ref<Book[]>(initialBooks);
+
+const page = ref<number>(1);
+const pageSize = 3;
+const totalPages = Math.ceil(initialBooks.length / pageSize);
+
+const books = ref<Book[]>(initialBooks.slice(0, pageSize));
 
 const searchText = ref('');
 const onFilter = () => {
   if (!searchText.value) books.value = initialBooks;
-  books.value = books.value.filter(book => 
+  books.value = initialBooks.filter(book => 
     book.title.includes(searchText.value)
     || book.synopsis.includes(searchText.value)
   );
+};
+
+const onChangePage = (updatedPage: number) => {
+  const startIndex = (updatedPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  books.value = initialBooks.slice(startIndex, endIndex);
+  page.value = updatedPage;
 };
 
 </script>
@@ -24,31 +36,40 @@ const onFilter = () => {
   <div class="book-list">
     <h1>Top Books of all time</h1>
     
-    <div class="book-search">
-      <input v-model="searchText" placeholder="Search by title or synopsis...">
-      <Button @click="onFilter">Search</Button>
-    </div>
-    
     <p v-if="isPending" class="book-feedback">
       Loading books...
     </p>
     <p v-else-if="isError || books.length <= 0" class="book-feedback">
       There are no books at this moment.
     </p>
-    <BookItem
-      v-else
-      v-for="(book, index) in books"
-      :key="book.slug"
-      :position="index + 1"
-      :title="book.title"
-      :rating="book.rating"
-      :author="book.author"
-      :slug="book.slug"
-      :cover="book.cover"
-      :synopsis="book.synopsis"
-      :upvoted="book.upvoted"
-      :upvotes="book.upvotes"
-    />
+    <div v-else>
+      <div class="book-search">
+        <input v-model="searchText" placeholder="Search by title or synopsis...">
+        <Button @click="onFilter">Search</Button>
+      </div>
+      <BookItem
+        v-for="(book, index) in books"
+        :key="book.slug"
+        :position="index + 1"
+        :title="book.title"
+        :rating="book.rating"
+        :author="book.author"
+        :slug="book.slug"
+        :cover="book.cover"
+        :synopsis="book.synopsis"
+        :upvoted="book.upvoted"
+        :upvotes="book.upvotes"
+      />
+      <div class="book-pagination">
+        <Button :disabled="page === 1" @click="onChangePage(page - 1)">
+          Previous
+        </Button>
+        <p>Page: {{ page }} of {{ totalPages }}</p>
+        <Button :disabled="page >= totalPages" @click="onChangePage(page + 1)">
+          Next
+        </Button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -74,6 +95,15 @@ const onFilter = () => {
   h1 {
     color: theme.$primary-color;
     text-align: center;
+  }
+  .book-pagination {
+    @include mixins.flex;
+    padding: theme.$space-l;
+    justify-content: space-between;
+    align-items: center;
+    p {
+      margin: 0;
+    }
   }
 }
 </style>

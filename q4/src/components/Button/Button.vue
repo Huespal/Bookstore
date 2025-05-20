@@ -34,6 +34,14 @@ const {
   color: theme.$dark-color;
 }
 
+@mixin disabled {
+  background-color: theme.$grey-color;
+  color: theme.$dark-color;
+  outline: 0;
+  cursor: default;
+  pointer-events: none;
+}
+
 button {
   @include mixins.rounded;
   border: none;
@@ -51,6 +59,12 @@ button {
     @include secondary;
     &:hover {
       @include primary;
+    }
+  }
+  &:disabled {
+    @include disabled;
+    &:hover {
+      @include disabled;
     }
   }
 }
