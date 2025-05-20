@@ -40,6 +40,7 @@ const books = [{
       :rating="book.rating"
       :author="book.author"
       :slug="book.slug"
+      :cover="book.cover"
       :synopsis="book.synopsis"
       :upvoted="book.upvoted"
       :upvotes="book.upvotes"

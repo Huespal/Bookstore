@@ -1,23 +1,36 @@
 <script setup lang="ts">
 import Button from '@/components/Button/Button.vue';
+import { ref } from 'vue';
 
 const {
-  reverse = false
+  reverse = false,
+  ...props
 } = defineProps<{
   reverse?: boolean,
   upvoted: boolean
   upvotes: number
 }>();
+
+const upvotesCount = ref(props.upvotes);
+const isUpvoted = ref(props.upvoted);
+
+const manageUpvotes = () => {
+  isUpvoted.value === true
+    ? upvotesCount.value--
+    : upvotesCount.value++;
+  isUpvoted.value = !isUpvoted.value;
+}
+
 </script>
 
 <template>
   <div class="upvoted" :class="reverse ? 'reverse' : ''">
-    <Button @click="$emit('onClick')" :variant="upvoted
+    <Button @click="manageUpvotes" :variant="isUpvoted
         ? 'secondary'
         : 'primary'">
-      {{ upvoted ? 'Upvoted' : 'Upvote' }}
+      {{ isUpvoted ? 'Upvoted' : 'Upvote' }}
     </Button>
-    <p>Upvoted {{ upvotes }} times</p>
+    <p>Upvoted {{ upvotesCount }} times</p>
   </div>
 </template>
 

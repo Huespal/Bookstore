@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Upvote from '@/components/Upvote/Upvote.vue';
 import { getImgSrc } from '@/core/helpers';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
 const props = defineProps<{
@@ -11,13 +11,11 @@ const props = defineProps<{
   rating: string,
   author: string,
   slug: string,
+  cover: string,
   synopsis: string,
   upvoted: boolean,
   upvotes: number
 }>();
-
-const upvotesCount = ref(props.upvotes);
-const isUpvoted = ref(props.upvoted);
 
 const bookItemBgColor = computed(() => 
   `${props.position % 2 === 0 ? 'secondary' : 'light'}-color`)?.value;
@@ -26,13 +24,6 @@ const synopsisShort = computed(() =>
   `${props.synopsis.substring(0, 200)}${(props.synopsis ?? '')?.length > 200
   ? '...' : ''}`)?.value;
 
-const manageUpvotes = () => {
-  isUpvoted.value === true
-    ? upvotesCount.value--
-    : upvotesCount.value++;
-  isUpvoted.value = !isUpvoted.value;
-}
-
 </script>
 
 <template>
@@ -40,19 +31,18 @@ const manageUpvotes = () => {
     <div>
       <div class="book-title">
         <RouterLink :to="slug">
-          <h4 class="book-title-text">{{ position }}. {{ title }}</h4>
+          <h2>{{ position }}. {{ title }}</h2>
         </RouterLink>
         <p>({{ rating }}/10)</p>
       </div>
       <i>{{ author }}</i>
       <p>{{ synopsisShort }}</p>
       <Upvote
-        @click="manageUpvotes"
-        :upvoted="isUpvoted"
-        :upvotes="upvotesCount" />
+        :upvoted="upvoted"
+        :upvotes="upvotes" />
     </div>
     <RouterLink :to="slug">
-      <img :src="getImgSrc" />
+      <img :src="getImgSrc(cover)" />
     </RouterLink> 
   </div>
 </template>
@@ -64,11 +54,16 @@ const manageUpvotes = () => {
 .book-item {
   @include mixins.flex;
   padding: theme.$space-l;
+
+  @media (max-width: theme.$breakpoint-m) {
+    flex-direction: column-reverse;
+  }
+
   .book-title {
     @include mixins.flex(theme.$space-s);
     align-items: center;
-    .book-title-text {
-      color: theme.$primary-color;
+    h2 {
+      color: theme.$tertiary-color;
     }
   }
   img {
