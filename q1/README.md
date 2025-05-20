@@ -2,7 +2,7 @@
 
 I am Dani, a Software Engineer living in Barcelona specialised in the Web's Frontend since I finished Multimedia degree at the university.
 
-I have worked with vanilla Javascript and Typescript, early versions of Angular in the past, with React for more than 7 years, and I am currently learning Vue.js (version 3). Furthermore, I've been developing by my own using Vue.js for about a year and I have not a commercial project with this framework (yet).
+I have worked with vanilla JavaScript and TypeScript, early versions of Angular in the past, with React for more than 7 years, and I am currently learning Vue.js (version 3). Furthermore, I've been developing by my own using Vue.js for about a year and I have not a commercial project with this framework (yet).
 
 My most relevant commercial projects are:
 
