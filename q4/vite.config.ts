@@ -14,7 +14,8 @@ export default defineConfig({
     root: fileURLToPath(new URL('./src', import.meta.url)),
     coverage: {
       include: [
-        'src/components/*'
+        'components/**/*',
+        'core/helpers.ts'
       ]
     }
   },

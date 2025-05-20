@@ -1,31 +1,25 @@
 <script setup lang="ts">
 import Upvote from '@/components/Upvote/Upvote.vue';
 import { getImgSrc } from '@/core/helpers';
-// TODO: Uncomment when API ready.
-// import { useGetBook } from '@/domain/books/api';
-// import { useRoute } from 'vue-router';
+import { useGetBook } from '@/domain/books/api';
+import { useRoute } from 'vue-router';
 
-// const route = useRoute();
-// const { slug } = route.params;
+const route = useRoute();
+const { slug } = route.params;
 
-// const { data } = useGetBook(slug as string);
-
-// const book = data ?? {
-const book = {
-  author: "Marcel Proust",
-  cover: "01.jpg",
-  rating: "9.9",
-  slug: "in-search-of-lost-time",
-  synopsis: "In Search of Lost Time, also translated as Remembrance of Things Past, novel in seven parts by Marcel Proust, published in French as À la recherche du temps perdu from 1913 to 1927. The novel is the story of Proust's own life, told as an allegorical search for truth.\nIn Search of Lost Time, also translated as Remembrance of Things Past, novel in seven parts by Marcel Proust, published in French as À la recherche du temps perdu from 1913 to 1927. The novel is the story of Proust's own life, told as an allegorical search for truth.",
-  title: "In Search of Lost Time",
-  upvoted: false,
-  upvotes: 1111
-};
+const { isPending, data, isError } = useGetBook(slug as string);
+const book = data.value;
 
 </script>
 
 <template>
   <div class="book-detail">
+    <p v-if="isPending" class="book-feedback">
+      Loading book...
+    </p>
+    <p v-else-if="isError || !book" class="book-feedback">
+      This book is not available at this moment.
+    </p>
     <div class="book-title">
       <h1>{{ book.title }}</h1>
       <Upvote
@@ -52,6 +46,11 @@ const book = {
   box-shadow: 0px 0px 10px 0px theme.$grey-color;
   padding: theme.$space-l;
   background-color: theme.$light-color;
+
+  .book-feedback {
+    text-align: center;
+  }
+
   .book-title {
     @include mixins.flex;
     align-items: center;

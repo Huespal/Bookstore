@@ -1,10 +1,11 @@
 <script setup lang="ts">
+export type Variant = 'primary' | 'secondary' | undefined;
 const {
   disabled = false,
   variant = 'primary'
 } = defineProps<{
   disabled?: boolean,
-  variant?: 'primary' | 'secondary'
+  variant?: Variant
 }>();
 </script>
 

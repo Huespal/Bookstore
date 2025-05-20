@@ -1,3 +1,3 @@
 import { APIUrl } from '@/core/constants';
 
-export const getImgSrc = (url: string) => `${APIUrl}/images/${url}`;
+export const getImgSrc = (fileName: string) => `${APIUrl}/images/${fileName}`;

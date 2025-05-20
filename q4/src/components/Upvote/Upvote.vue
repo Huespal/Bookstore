@@ -20,7 +20,6 @@ const manageUpvotes = () => {
     : upvotesCount.value++;
   isUpvoted.value = !isUpvoted.value;
 }
-
 </script>
 
 <template>

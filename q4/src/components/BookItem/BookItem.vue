@@ -7,7 +7,6 @@ import { RouterLink } from 'vue-router';
 const props = defineProps<{
   position: number,
   title: string,
-  imgUrl: string,
   rating: string,
   author: string,
   slug: string,
