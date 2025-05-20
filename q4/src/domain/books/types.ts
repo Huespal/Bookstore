@@ -8,3 +8,8 @@ export interface Book {
   upvoted: boolean;
   upvotes: number;
 }
+
+export interface Comment {
+  author: string;
+  message: string;
+}
