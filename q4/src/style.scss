@@ -16,6 +16,11 @@ body {
   main {
     margin: 0 25%;
     align-content: center;
+    transition: margin .5s;
+
+    @media (max-width: theme.$breakpoint-m) {
+      margin: 0 10%;
+    }
 
     a {
       text-decoration: none;
