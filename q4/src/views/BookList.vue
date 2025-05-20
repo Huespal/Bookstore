@@ -1,15 +1,34 @@
 <script setup lang="ts">
 import BookItem from '@/components/BookItem/BookItem.vue';
+import Button from '@/components/Button/Button.vue';
 import { useGetBooks } from '@/domain/books/api';
 import type { Book } from '@/domain/books/types';
+import { ref } from 'vue';
 
 const { isPending, isError, data } = useGetBooks();
-const books: Book[] = data.value ?? [];
+const initialBooks = data.value ?? [];
+const books = ref<Book[]>(initialBooks);
+
+const searchText = ref('');
+const onFilter = () => {
+  if (!searchText.value) books.value = initialBooks;
+  books.value = books.value.filter(book => 
+    book.title.includes(searchText.value)
+    || book.synopsis.includes(searchText.value)
+  );
+};
+
 </script>
 
 <template>
   <div class="book-list">
     <h1>Top Books of all time</h1>
+    
+    <div class="book-search">
+      <input v-model="searchText" placeholder="Search by title or synopsis...">
+      <Button @click="onFilter">Search</Button>
+    </div>
+    
     <p v-if="isPending" class="book-feedback">
       Loading books...
     </p>
@@ -17,6 +36,7 @@ const books: Book[] = data.value ?? [];
       There are no books at this moment.
     </p>
     <BookItem
+      v-else
       v-for="(book, index) in books"
       :key="book.slug"
       :position="index + 1"
@@ -34,10 +54,20 @@ const books: Book[] = data.value ?? [];
 
 <style lang="scss" scoped>
 @use '@/core/styles/theme';
+@use '@/core/styles/mixins';
 
 .book-list {
   box-shadow: 0px 0px 10px 0px theme.$grey-color;
   align-content: center;
+  .book-search {
+    @include mixins.flex;
+    padding: theme.$space-l;
+    justify-content: end;
+    input {
+      @include mixins.rounded;
+      min-width: 12rem;
+    }
+  }
   .book-feedback {
     text-align: center;
   }
