@@ -36,6 +36,7 @@
     img {
       @include mixins.rounded;
       max-height: fit-content;
+      box-shadow: 0px 0px 10px 0px theme.$grey-color;
 
       @media (max-width: theme.$breakpoint-m) {
         @include mixins.image-s;

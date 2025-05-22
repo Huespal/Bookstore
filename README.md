@@ -1,11 +1,9 @@
-# Notes
+# Bookstore
 
-I share here some assumptions I've made, as well as notes on decisions and things I would improve or add in the future. This challenge includes two different technical tasks, Q3, focused on web styling, and Q4, focused on web programming as a SPA. So I divide this document into these two challenges.
+I share here some assumptions I've made, as well as notes on decisions and things I would improve or add in the future. This project is separated into the 'Top Books' page focused on web styling, and the Bookstore itself, focused on web programming as a SPA. So I divide this document into these two.
 
 
-## Styling Challenge (Q3)
-
-For the styling challenge, it was specified to avoid changing the template. I did not change the template content, but the template file name to `index.html`. I hope this minor modification is allowed. Not only that, but I also avoided uploading the 'result.jpg' image that came within the original data, as it is not required.
+## Styling (Top Books)
 
 I used the [SASS](https://sass-lang.com/) CSS preprocessor and wrote the styles using SCSS language. I've added [Vite](https://vite.dev/) to help me compile to CSS files. I left the `styles.scss` main styling file linked to the index HTML file for development purposes, but it should be the CSS file generated from the building system into the /dist folder.
 
@@ -18,9 +16,9 @@ npm install
 npm run dev
 ```
 
-## SPA Challenge (Q4)
+## SPA (Bookstore)
 
-For the Single Page Application challenge using Vue.js, I used [Vite](https://vite.dev/) project's building tool to take advantage of Hot Module Reload and [SASS](https://sass-lang.com/) CSS preprocessor, writing the styles using SCSS. The theming has been adjusted to ensure the final design is not exactly replicated from the screens shared and match challenge requirements. The project is coded using [TypeScript](https://www.typescriptlang.org/). [Vue Router](https://router.vuejs.org/) has added for routing, and [Vue Query](https://tanstack.com/query/v4/docs/framework/vue/overview) to automatically handle cache while connecting to the API. Components and helper utilities are tested using [Vitest](https://vitest.dev/) combined with the [Vue Testing library](https://testing-library.com/docs/vue-testing-library/intro/).
+For the Single Page Application using Vue.js, I used [Vite](https://vite.dev/) project's building tool to take advantage of Hot Module Reload and [SASS](https://sass-lang.com/) CSS preprocessor, writing the styles using SCSS. The project is coded using [TypeScript](https://www.typescriptlang.org/). [Vue Router](https://router.vuejs.org/) has added for routing, and [Vue Query](https://tanstack.com/query/v4/docs/framework/vue/overview) to automatically handle cache while connecting to the API. Components and helper utilities are tested using [Vitest](https://vitest.dev/) combined with the [Vue Testing library](https://testing-library.com/docs/vue-testing-library/intro/).
 
 The application contains different folders under the main `src` folder:
 
@@ -33,7 +31,7 @@ The application contains different folders under the main `src` folder:
 
 I've added the Search, Pagination and Comments bonus features directly into the respective views, Search and Pagination into the Books List view and Comments into the Book Detail view. But those are potential separate components to be shared across the application and may include its own testing use cases.
 
-The Pagination it's been done locally as per challenge requirements. In a real world production application, I would suggest handling the pagination server side to avoid the client to store more data than is required in the current view. Having a paginated API endpoint allows the client to ask for the specific data only when the user requires it. 
+The Pagination it's been done locally but in a real world production application, I would suggest handling the pagination server side to avoid the client to store more data than is required in the current view. Having a paginated API endpoint allows the client to ask for the specific data only when the user requires it. 
 
 A 'Not Found' view may be included to handle all routes different from the Book List view and the Book Details view.
 
