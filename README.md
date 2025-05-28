@@ -46,3 +46,6 @@ Tests and coverage can be executed with these commands:
 npm run test
 npm run test:coverage
 ```
+
+This application receives data from the [Bookstore API](https://github.com/Huespal/bookstore-api).
+It should be started before running the Bookstore.
