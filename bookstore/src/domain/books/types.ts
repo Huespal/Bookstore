@@ -13,3 +13,10 @@ export interface Comment {
   author: string;
   message: string;
 }
+
+export interface BookResponse {
+  books: Book[];
+  meta: { 
+    count: number;
+  }
+}

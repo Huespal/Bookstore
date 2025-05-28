@@ -36,6 +36,6 @@ describe('Button', () => {
       const button = screen.getByText('Test');
       await fireEvent.click(button);
 
-      expect(wrapper.emitted()).toHaveProperty('onClick')
+      expect(wrapper.emitted()).toHaveProperty('onClick');
     });
 });
