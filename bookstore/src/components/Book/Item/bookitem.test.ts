@@ -1,10 +1,10 @@
-import BookItem from '@/components/BookItem/BookItem.vue';
+import BookItem from '@/components/Book/Item/BookItem.vue';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/vue';
 import { RouterLinkStub } from '@vue/test-utils';
 import { describe, expect, test } from 'vitest';
 
-describe('Book Item', () => {
+describe('Book > Item', () => {
   test('Renders component successfully given required properties', () => {
     render(BookItem, {
       props: {

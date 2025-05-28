@@ -1,38 +1,20 @@
 <script setup lang="ts">
-import Button from '@/components/Button/Button.vue';
+import BookComments from '@/components/Book/Comments/BookComments.vue';
 import Upvote from '@/components/Upvote/Upvote.vue';
 import { getImgSrc } from '@/core/helpers';
 import { useGetBook } from '@/domain/books/api';
-import { type Comment } from '@/domain/books/types';
-import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const { slug } = route.params;
 
-const { isPending, data, isError } = useGetBook(slug as string);
-const book = data.value;
-
-const comment = ref('');
-const comments = ref<Comment[]>([
-  {
-    author: 'John Doe',
-    message: 'I really like this book. 100% Recommended.'
-  },
-  {
-    author: 'Marie Doe',
-    message: 'You should all read this book. I love how the story wraps up!'
-  }
-]);
-const onSubmitComment = () => {
-  comments.value.push({ author: 'Guest', message: comment.value });
-  comment.value = '';
-}
+const { isPending, data: book, isError } = useGetBook(slug as string);
 
 </script>
 
 <template>
   <div class="book-detail">
+    <RouterLink to="/"> < Go Back </RouterLink>
     <p v-if="isPending" class="book-feedback">
       Loading book...
     </p>
@@ -55,22 +37,7 @@ const onSubmitComment = () => {
       <h3>Synopsis</h3>
       <p>{{ book.synopsis }}</p>
       <strong>Rating: {{ book.rating }}/10</strong>
-      <h3>Comments</h3>
-      <p v-if="comments.length <= 0">
-        There are no comments yet. Be the first to comment!
-      </p>
-      <div v-else v-for="({ author, message }) in comments">
-        <strong>{{ author }}</strong>
-        <p>{{ message }}</p>
-      </div>
-      <div class="book-comment">
-        <textarea
-          v-model="comment"
-          rows="10" cols="50"
-          placeholder="Write a comment"
-        ></textarea>
-        <Button @click="onSubmitComment">Submit</Button>
-      </div>
+      <BookComments />
     </div>
   </div>
 </template>
@@ -106,13 +73,6 @@ const onSubmitComment = () => {
   figure {
     text-align: center;
     img {
-      @include mixins.rounded;
-    }
-  }
-  .book-comment {
-    @include mixins.flex;
-    align-items: end;
-    textarea {
       @include mixins.rounded;
     }
   }
