@@ -53,6 +53,7 @@ const synopsisShort = computed(() =>
 .book-item {
   @include mixins.flex;
   padding: theme.$space-l;
+  justify-content: space-between;
 
   @media (max-width: theme.$breakpoint-m) {
     flex-direction: column-reverse;
