@@ -9,6 +9,14 @@ export interface Book {
   upvotes: number;
 }
 
+export interface BookCreateRequest {
+  author: string;
+  title: string;
+  cover: string | null;
+  rating: string | null;
+  synopsis: string | null;
+}
+
 export interface Comment {
   author: string;
   message: string;
@@ -16,7 +24,7 @@ export interface Comment {
 
 export interface BookResponse {
   books: Book[];
-  meta: { 
+  meta: {
     count: number;
   }
 }

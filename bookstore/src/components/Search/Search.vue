@@ -18,7 +18,6 @@ const searchText = ref('');
 
 .book-search {
   @include mixins.flex;
-  padding: theme.$space-l;
   justify-content: end;
   input {
     @include mixins.rounded;

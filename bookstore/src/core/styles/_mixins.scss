@@ -9,6 +9,12 @@
   gap: $gap;
 }
 
+@mixin grid($cols: 2, $gap: theme.$space-default) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat($cols, 1fr);
+}
+
 @mixin flex-column($gap: theme.$space-default) {
   @include flex($gap);
   flex-direction: column;
@@ -21,4 +27,12 @@
   width: auto;
   height: 12.5rem; // 200px
   box-shadow: 0px 0px 10px 0px theme.$grey-color;
+}
+
+@mixin input($height: theme.$space-l) {
+  @include rounded;
+  width: 15rem;
+  height: $height;
+  font-size: large;
+  margin: theme.$space-s 0 theme.$space-default 0;
 }

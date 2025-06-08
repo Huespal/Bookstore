@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import BookItem from '@/components/Book/Item/BookItem.vue';
+import Button from '@/components/Button/Button.vue';
 import Pagination from '@/components/Pagination/Pagination.vue';
 import Search from '@/components/Search/Search.vue';
 import { useGetBooks } from '@/domain/books/api';
 import type { Book } from '@/domain/books/types';
 import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const { isPending, isError, data, isSuccess } = useGetBooks();
 
@@ -43,6 +47,10 @@ const onChangePage = (updatedPage: number) => {
   page.value = updatedPage;
 };
 
+const onGoToForm = () => {
+  router.push('/create');
+}
+
 </script>
 
 <template>
@@ -55,7 +63,10 @@ const onChangePage = (updatedPage: number) => {
       There are no books at this moment.
     </p>
     <div v-else>
-      <Search @onSearch="onFilter" />
+      <header>
+        <Button @click="onGoToForm">+ Add</Button>
+        <Search @onSearch="onFilter" />
+      </header>
       <BookItem
         v-for="(book, index) in books"
         :key="book.slug"
@@ -91,6 +102,12 @@ const onChangePage = (updatedPage: number) => {
   }
   .book-feedback {
     text-align: center;
+  }
+  header {
+    @include mixins.flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: theme.$space-l;
   }
 }
 </style>
