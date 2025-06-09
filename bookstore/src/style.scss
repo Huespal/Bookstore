@@ -25,5 +25,9 @@ body {
     a {
       text-decoration: none;
     }
+
+    .error-message {
+      color: theme.$error-color;
+    }
   }
 }

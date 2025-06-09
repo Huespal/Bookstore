@@ -31,8 +31,29 @@
 
 @mixin input($height: theme.$space-l) {
   @include rounded;
-  width: 15rem;
   height: $height;
   font-size: large;
+  padding: 0 theme.$space-s;
   margin: theme.$space-s 0 theme.$space-default 0;
+}
+
+@mixin fieldset {
+  @include flex-column(0);
+  padding: 0;
+  margin: 0;
+  border: none;
+
+  label {
+    font-size: large;
+  }
+
+  input {
+    @include input;
+    width: 12rem; // 192px
+  }
+
+  textarea {
+    @include input(15rem); // 240px
+    resize: vertical;
+  }
 }

@@ -9,16 +9,21 @@ const throwError = (error: unknown) => {
 export const api = async <T,>(
   url: string, method: HTTPMethod, body?: T
 ) => {
+  const isBinary = body instanceof FormData;
+
   const headers: [string, string][] = [
-    ['accept', 'application/json'],
-    ['content-type', 'application/json']
+    ['accept', 'application/json']
   ];
+
+  if (!isBinary) {
+    headers.push(['content-type', 'application/json']);
+  }
 
   try {
     const data = await fetch(`${APIUrl}${url}`, {
       headers,
       method,
-      body: JSON.stringify(body)
+      body: isBinary ? body : JSON.stringify(body)
     });
 
     const response = await data.json();
