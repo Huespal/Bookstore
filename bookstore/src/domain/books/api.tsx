@@ -13,6 +13,7 @@ export const useGetBook = (slug: string) => useQuery({
   queryFn: () => api(`/books/${slug}`, 'GET')
 });
 
-export const useCreateBook = () => useMutation({
-  mutationFn: (body: BookCreateRequest) => api(`/books`, 'POST', body)
+export const useCreateBook = (onSuccess?: () => void) => useMutation({
+  mutationFn: (body: BookCreateRequest) => api(`/books`, 'POST', body),
+  onSuccess
 })
